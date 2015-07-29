@@ -11,7 +11,7 @@
 
 from dojson import utils
 
-from ..model import marc21
+from ..model import marc21, tomarc21
 
 {%- for tag, field in data if tag|length() == 3 %}
 {%- if 'subfields' in field %}
@@ -50,6 +50,37 @@ def {{ clean_name(field.name) }}(self, key, value):
         '{{ indicator2['name'] }}': indicator_map2.get(key[4]),
     {%- endif %}
     }
+
+
+@tomarc21.over('^{{ tag }}{{ indicator1['re'] }}{{ indicator2['re'] }}', '{{ clean_name(field.name) }}')
+{%- if field.repeatable %}
+@utils.reverse_for_each_value
+{%- endif %}
+@utils.filter_values
+def reverse_{{ clean_name(field.name) }}(self, key, value):
+    """Reverse - {{ field.name }}."""
+    {%- if indicator1.get('name') %}
+    indicator_map1 = {
+        {%- for key, value in indicator1.iteritems() %}
+            # TODO
+        {%- endfor %}
+    }
+    {%- endif %}
+    {%- if indicator2.get('name') %}
+    indicator_map1 = {
+        {%- for key, value in indicator2.iteritems() %}
+            # TODO
+        {%- endfor %}
+    }
+    {%- endif %}
+    return {
+    {%- for code, subfield in field.get('subfields').iteritems() %}
+        '{{ code }}': utils.reverse_force_list(value.get('{{ clean_name(subfield['name']) }}')),
+    {%- endfor %}
+    }
+
+
+
 {%- else %}
 
 
@@ -57,5 +88,12 @@ def {{ clean_name(field.name) }}(self, key, value):
 def {{ clean_name(field.name) }}(self, key, value):
     """{{ field.name }}."""
     return value[0]
+
+@tomarc21.over('^{{ tag }}', '{{ clean_name(field.name) }}')
+def reverse_{{ clean_name(field.name) }}(self, key, value):
+    """Reverse - {{ field.name }}."""
+    return [value]
 {%- endif %}
+
+
 {%- endfor %}
