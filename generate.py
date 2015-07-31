@@ -58,7 +58,12 @@ def get_indicator(possition, field):
         return {'re': '.'}
     return indicator
 
+def reverse_dict(d):
+    new_dict = {}
+    for key, value in d.iteritems():
+        new_dict[value] = key
 
+    return new_dict
 
 @click.command()
 @click.argument('source', type=click.File('r'))
@@ -74,6 +79,7 @@ def generate(source, template, re_fields=None):
         data=sorted(data),
         clean_name=clean_name,
         get_indicator=get_indicator,
+        reverse_dict=reverse_dict,
         tojson=tojson_filter,
         set=lambda *args, **kwargs: list(set(*args, **kwargs)),
     ))

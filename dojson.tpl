@@ -60,23 +60,21 @@ def {{ clean_name(field.name) }}(self, key, value):
 def reverse_{{ clean_name(field.name) }}(self, key, value):
     """Reverse - {{ field.name }}."""
     {%- if indicator1.get('name') %}
-    indicator_map1 = {
-        {%- for key, value in indicator1.iteritems() %}
-            # TODO
-        {%- endfor %}
-    }
+    indicator_map1 = {{ tojson(reverse_dict(indicator1.get('values', {}))) }}
     {%- endif %}
     {%- if indicator2.get('name') %}
-    indicator_map1 = {
-        {%- for key, value in indicator2.iteritems() %}
-            # TODO
-        {%- endfor %}
-    }
+    indicator_map2 = {{ tojson(reverse_dict(indicator2.get('values', {}))) }}
     {%- endif %}
     return {
     {%- for code, subfield in field.get('subfields').iteritems() %}
         '{{ code }}': utils.reverse_force_list(value.get('{{ clean_name(subfield['name']) }}')),
     {%- endfor %}
+    {%- if indicator1.get('name') %}
+        '_indicator1': indicator_map1.get(value.get('{{ indicator1['name'] }}')),
+    {%- endif %}
+    {%- if indicator2.get('name') %}
+        '_indicator2': indicator_map2.get(value.get('{{ indicator2['name'] }}')),
+    {%- endif %}
     }
 
 
