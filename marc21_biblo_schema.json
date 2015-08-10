@@ -3963,6 +3963,11 @@
                 "repeatable": false,
                 "static": false
             },
+            "p": {
+                "name": "Set indicator",
+                "repeatable": false,
+                "static": false
+            },
             "q": {
                 "name": "Qualifying information",
                 "repeatable": true,
@@ -11249,6 +11254,11 @@
                 "repeatable": true,
                 "static": false
             },
+            "9": {
+                "name": "E-mail",
+                "repeatable": true,
+                "static": false
+            },
             "a": {
                 "name": "Summary, etc.",
                 "repeatable": false,
@@ -11266,6 +11276,11 @@
             },
             "u": {
                 "name": "Uniform Resource Identifier",
+                "repeatable": true,
+                "static": false
+            },
+            "w": {
+                "name": "Username",
                 "repeatable": true,
                 "static": false
             }
@@ -14376,6 +14391,11 @@
                 "repeatable": true,
                 "static": false
             },
+            "9": {
+                "name": "Institute of the uncontrolled term",
+                "repeatable": false,
+                "static": false
+            },
             "a": {
                 "name": "Uncontrolled term",
                 "repeatable": true,
@@ -16770,8 +16790,18 @@
                 "repeatable": false,
                 "static": false
             },
+            "c": {
+                "name": "Pagination",
+                "repeatable": false,
+                "static": false
+            },
             "d": {
                 "name": "Place, publisher, and date of publication",
+                "repeatable": false,
+                "static": false
+            },
+            "e": {
+                "name": "Recid of linked document record",
                 "repeatable": false,
                 "static": false
             },
@@ -16837,6 +16867,11 @@
             },
             "u": {
                 "name": "Standard Technical Report Number",
+                "repeatable": false,
+                "static": false
+            },
+            "v": {
+                "name": "Volume",
                 "repeatable": false,
                 "static": false
             },
